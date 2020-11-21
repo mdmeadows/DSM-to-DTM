@@ -2,3 +2,5 @@
 Exploring the use of machine learning to convert a Digital Surface Model (e.g. SRTM) to a Digital Terrain Model
 
 Description with a few figures/maps
+
+Adding a new line as a test
