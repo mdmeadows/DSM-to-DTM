@@ -425,7 +425,7 @@ for zone in test_zones:
     axes[0,0].axis('off')
     # Row 1B: Satellite imagery
     axes[0,1].imshow(sat_img, aspect='equal')
-    axes[0,1].set_title('b) Satellite imagery (Source: LINZ Data Service)', x=0, ha='left', size=9, pad=4)
+    axes[0,1].set_title("b) 'NZ Imagery' basemap (LINZ Data Service)", x=0, ha='left', size=9, pad=4)
     axes[0,1].axis('off')
     # Row 2A: SRTM DSM
     axes[1,0].imshow(srtm, aspect='equal', cmap=elv_cmap, norm=elv_norm)
@@ -956,7 +956,7 @@ slope_test = vectors_test['srtm_slope'].values
 axes[0].hist([z_train, z_dev, z_test], color=dataset_colours, label=['Train','Validation','Test'], linewidth=2, alpha=0.5, bins=50, density=True, histtype='step', log=True)
 axes[0].set_xlabel('SRTM Elevations [m]')
 axes[0].set_ylabel('Relative frequency (log-scale)')
-axes[0].set_title('a) Distribution of elevation values, by input dataset', x=0, ha='left', color='dimgrey', weight='bold', alpha=0.8)
+axes[0].set_title('a) Distribution of elevation values, by input dataset', x=0, size=10, ha='left', color='dimgrey', weight='bold', alpha=0.8)
 [axes[0].spines[edge].set_visible(False) for edge in ['top','right']]
 h0, l0 = axes[0].get_legend_handles_labels()
 axes[0].legend(h0[::-1], l0[::-1], frameon=False, loc='upper right')
@@ -964,7 +964,7 @@ axes[0].legend(h0[::-1], l0[::-1], frameon=False, loc='upper right')
 axes[1].hist([slope_train, slope_dev, slope_test], color=dataset_colours, label=['Train','Validation','Test'], linewidth=2, alpha=0.5, bins=50, density=True, histtype='step', log=True)
 axes[1].set_xlabel('Slopes - derived from SRTM elevations [%]')
 axes[1].set_ylabel('Relative frequency (log-scale)')
-axes[1].set_title('a) Distribution of slope values, by input dataset', x=0, ha='left', color='dimgrey', weight='bold', alpha=0.8)
+axes[1].set_title('b) Distribution of slope values, by input dataset', x=0, size=10, ha='left', color='dimgrey', weight='bold', alpha=0.8)
 [axes[1].spines[edge].set_visible(False) for edge in ['top','right']]
 h1, l1 = axes[1].get_legend_handles_labels()
 axes[1].legend(h1[::-1], l1[::-1], frameon=False, loc='upper right')
@@ -1273,19 +1273,19 @@ for zone in test_zones:
             axes[i].xaxis.set_visible(False)
             [axes[i].spines[edge].set_visible(False) for edge in ['top','right','bottom','left']]
             axes[i].yaxis.set_tick_params(length=0)
-            axes[i].tick_params(axis='y', labelsize=8)
+            axes[i].tick_params(axis='y', labelsize=7)
             # Add faded y-axis grid lines & y-axis label
             axes[i].grid(axis='y', which='major', color='dimgrey', alpha=0.1)
-            axes[i].set_ylabel('Elevation [m]', fontsize=9)
+            axes[i].set_ylabel('Elevation [m]', fontsize=8)
             # Add annotations indicating section name/code
-            axes[i].annotate(cs, xy=(0.05, 0.0), xycoords='axes fraction', ha='left', va='bottom', color='dimgrey', fontweight='bold', alpha=0.8)
-            axes[i].annotate("{} '".format(cs), xy=(0.95, 0.0), xycoords='axes fraction', ha='right', va='bottom', color='dimgrey', fontweight='bold', alpha=0.8)
+            axes[i].annotate(cs, xy=(0.05, 0.0), xycoords='axes fraction', ha='left', va='bottom', fontweight='bold', alpha=0.8)
+            axes[i].annotate("{} '".format(cs), xy=(0.95, 0.0), xycoords='axes fraction', ha='right', va='bottom', fontweight='bold', alpha=0.8)
 # Tighten layout & make space for the legend
 fig.tight_layout(h_pad=1, w_pad=0)
 plt.subplots_adjust(top=0.97)
 # Add overall legend & align labels
 legend_handles, legend_labels = axes[i-1].get_legend_handles_labels()
-fig.legend(legend_handles, legend_labels, frameon=False, loc='upper center', ncol=5, columnspacing=1.0, handletextpad=0.3, prop={'size':9})
+fig.legend(legend_handles, legend_labels, frameon=False, loc='upper center', ncol=5, columnspacing=1.5, handletextpad=0.3, prop={'size':8})
 fig.align_labels()
 # Save figure
 fig.savefig('{}/results_sections.png'.format(folder_fig), dpi=300, bbox_inches='tight')

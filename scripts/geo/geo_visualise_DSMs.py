@@ -258,7 +258,7 @@ diff_max = np.nanmax([np.nanmax([val for dsm_diffs in diffs[DSM] for val in dsm_
 diff_range = np.linspace(diff_min, diff_max, num=100)
 
 # Set up a single-axis figure
-fig, axes = plt.subplots(figsize=(9,5))
+fig, axes = plt.subplots(figsize=(9,4.5))
 
 # Loop through the three DEMs available, adding each to the plot
 for DSM in DSMs:

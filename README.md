@@ -6,7 +6,6 @@ The image below visualises the performance of one of these models (a fully-convo
 
 ![graphical_abstract](/images/graphical_abstract_boxplots.png)  
 
-
 ## Python scripts
 
 All Python code fragments used during this research are shared here (covering preparing input data, building & training three different ML models, and visualising the results), in the hope that they'll be useful for others doing related work. Please note this code includes exploratory steps & some dead ends, and is not a refined step-by-step template for applying this approach in a new location.
@@ -16,12 +15,11 @@ Scripts are stored in folders relating to the virtual environments within which 
 - [geo](/scripts/geo/): geospatial processing & mapping
 - [sklearn](/scripts/sklearn/): development of Random Forest model
 - [tf2](/scripts/tf2/): development of neural network models
-- [osm](/scripts/osm/): downloading OpenStreetMap data
-
+- [osm](/scripts/osm/): downloading OpenStreetMap data  
 
 ## Brief summary of datasets used
 
-The data processed for use in this project comprised the feature data (free, global datasets relevant to the vertical bias in DSMs, to be used as inputs to the machine learning models), target data (the reference "bare earth" DTM from which the models learn to predict vertical bias), and some supplementary datasets (not essential to the modelling but used to explore/understand the results).
+The data processed for use in this project comprised the feature data (free, global datasets relevant to the vertical bias in DSMs, to be used as inputs to the machine learning models), target data (the reference "bare earth" DTM from which the models learn to predict vertical bias), and some supplementary datasets (not essential to the modelling but used to explore/understand the results).  
 
 ### Feature data
 
@@ -44,7 +42,7 @@ A guiding principle for the project was that all feature (input) data should be 
 - Global forest canopy height: Developed by [Simard et al. 2011](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2011JG001708) and available for download [here](https://landscape.jpl.nasa.gov/)
 - Global forest cover: Developed by [Hansen et al. 2013](https://science.sciencemag.org/content/342/6160/850) and available for download [here](https://earthenginepartners.appspot.com/science-2013-global-forest/download_v1.6.html)
 - Global surface water: Developed by [Pekel et al. 2016](https://www.nature.com/articles/nature20584) and available for download [here](https://global-surface-water.appspot.com/download)
-- OpenStreetMap layers: Downloaded using the [OSMnx](https://github.com/gboeing/osmnx) Python module developed by [Boeing 2017](https://www.sciencedirect.com/science/article/pii/S0198971516303970)
+- OpenStreetMap layers: Downloaded using the [OSMnx](https://github.com/gboeing/osmnx) Python module developed by [Boeing 2017](https://www.sciencedirect.com/science/article/pii/S0198971516303970)  
 
 ### Target data
 
@@ -54,16 +52,14 @@ In order to learn how to predict (and then correct) the vertical biases present 
 - Tasman - Golden Bay (Nov-Dec 2017): [DTM](https://data.linz.govt.nz/layer/95503-tasman-golden-bay-lidar-1m-dem-2017/) and corresponding [index tiles](https://data.linz.govt.nz/layer/95627-goldenbaytilelayout/)
 - Tasman - Abel Tasman & Golden Bay (Dec 2016): [DTM](https://data.linz.govt.nz/layer/95578-tasman-abel-tasman-and-golden-bay-lidar-1m-dem-2016/) and corresponding [index tiles](https://data.linz.govt.nz/layer/95581-tasman-abel-tasman-and-golden-bay-lidar-index-tiles-2016/)
 
-To find similar target/reference DTM data in other parts of the world, the [OpenTopography](https://opentopography.org/) initiative maintains a catalogue of freely available sources.
-
+To find similar target/reference DTM data in other parts of the world, the [OpenTopography](https://opentopography.org/) initiative maintains a catalogue of freely available sources.  
 
 ### Supplementary data
 
 A few other datasets are referred to in the code, not as inputs to the machine learning models but just as references to better understand the results.
 
 - MERIT DSM: Improved DSM developed by [Yamazaki et al. 2017](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2017GL072874), with a request form for the data available [here](http://hydro.iis.u-tokyo.ac.jp/~yamadai/MERIT_DEM/)
-- New Zealand Land Cover Database (LCDB v5.0): Developed by [Manaaki Whenua - Landcare Research](https://www.landcareresearch.co.nz/), available from the [LRIS portal](https://lris.scinfo.org.nz/)
-
+- New Zealand Land Cover Database (LCDB v5.0): Developed by [Manaaki Whenua - Landcare Research](https://www.landcareresearch.co.nz/), available from the [LRIS portal](https://lris.scinfo.org.nz/)  
 
 ## Brief summary of approach taken
 
