@@ -6,7 +6,7 @@ The image below visualises the performance of one of these models (a fully-convo
 
 ![graphical_abstract](/images/graphical_abstract_boxplots.png)  
 
-
+  
 ## Python scripts
 
 All Python code fragments used during this research are shared here (covering preparing input data, building & training three different ML models, and visualising the results), in the hope that they'll be useful for others doing related work. Please note this code includes exploratory steps & some dead ends, and is not a refined step-by-step template for applying this approach in a new location.
@@ -18,12 +18,12 @@ Scripts are stored in folders relating to the virtual environments within which 
 - [tf2](/scripts/tf2/): development of neural network models
 - [osm](/scripts/osm/): downloading OpenStreetMap data  
 
-
+  
 ## Brief summary of datasets used
 
 The data processed for use in this project comprised the feature data (free, global datasets relevant to the vertical bias in DSMs, to be used as inputs to the machine learning models), target data (the reference "bare earth" DTM from which the models learn to predict vertical bias), and some supplementary datasets (not essential to the modelling but used to explore/understand the results).  
 
-
+  
 ### Feature data
 
 A guiding principle for the project was that all feature (input) data should be available for free and with global (or near-global) coverage, so as to maximise applicability in low-income countries/contexts. While these datasets were too big to store here, all can be downloaded for free and relatively easily (some require signing up to the provider platform) based on the notes below.
@@ -47,7 +47,7 @@ A guiding principle for the project was that all feature (input) data should be 
 - Global surface water: Developed by [Pekel et al. 2016](https://www.nature.com/articles/nature20584) and available for download [here](https://global-surface-water.appspot.com/download)
 - OpenStreetMap layers: Downloaded using the [OSMnx](https://github.com/gboeing/osmnx) Python module developed by [Boeing 2017](https://www.sciencedirect.com/science/article/pii/S0198971516303970)  
 
-
+  
 ### Target data
 
 In order to learn how to predict (and then correct) the vertical biases present in DSMs, the models need reference data - "bare earth" DTMs assumed to be the "ground truth" that we're aiming for. For this project, we used three of the high-resolution LiDAR-derived DTMs published online by the New Zealand Government, accessible to all via the Land Information New Zealand (LINZ) [Data Service](https://data.linz.govt.nz/). The specific LiDAR surveys used are summarised below, from the Marlborough & Tasman Districts (in the north of Aotearoa New Zealand's South Island):
@@ -58,7 +58,7 @@ In order to learn how to predict (and then correct) the vertical biases present 
 
 To find similar target/reference DTM data in other parts of the world, the [OpenTopography](https://opentopography.org/) initiative maintains a catalogue of freely available sources.  
 
-
+  
 ### Supplementary data
 
 A few other datasets are referred to in the code, not as inputs to the machine learning models but just as references to better understand the results.
@@ -66,7 +66,7 @@ A few other datasets are referred to in the code, not as inputs to the machine l
 - MERIT DSM: Improved DSM developed by [Yamazaki et al. 2017](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2017GL072874), with a request form for the data available [here](http://hydro.iis.u-tokyo.ac.jp/~yamadai/MERIT_DEM/)
 - New Zealand Land Cover Database (LCDB v5.0): Developed by [Manaaki Whenua - Landcare Research](https://www.landcareresearch.co.nz/), available from the [LRIS portal](https://lris.scinfo.org.nz/)  
 
-
+  
 ## Brief summary of approach taken
 
 The broad approach taken is summarised below as succinctly as possible, with further details provided as comments in the relevant scripts. **Note that this is not yet complete - I will be adding to this over coming weeks.**
@@ -74,15 +74,15 @@ The broad approach taken is summarised below as succinctly as possible, with fur
 1. For each available LiDAR survey zone, process the DSMs and DTM in tandem: clipping each DSM ([SRTM](/scripts/geo/geo_process_LiDAR_SRTM.py), [ASTER](/scripts/geo/geo_process_ASTER.py) and [AW3D30](/scripts/geo/geo_process_AW3D30.py)) to the extent covered by the LiDAR survey, and resampling the [DTM](/scripts/geo/geo_process_LiDAR_SRTM.py) to the same resolution & grid alignment as each DSM. Various DSM derivatives (such as slope, aspect & topographical index products) are also prepared here.
 2. Based on a comparison of differences between each DSM and the DTM (resampled to match that particular DSM), the SRTM DSM was selected as the "base" for all further processing ([script](/scripts/geo/geo_visualise_DSMs.py)).
 3. Process all other input datasets - resampling to match the SRTM resolution & grid alignment, masking out clouds for the multi-spectral imagery, applying bounds where appropriate (e.g. for percentage variables):
-   a) Landsat-7 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat7.py))
-   b) Landsat-8 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat8.py))
-   c) ASTER DEM ([script](/scripts/geo/geo_process_ASTER.py))
-   d) AW3D30 DEM ([script](/scripts/geo/geo_process_AW3D30.py))
-   e) Night-time light ([script](/scripts/geo/geo_process_NTL.py))
-   f) Global forest canopy height ([script](/scripts/geo/geo_process_GCH.py))
-   g) Global forest cover ([script](/scripts/geo/geo_process_GFC.py))
-   h) Global surface water ([script](/scripts/geo/geo_process_GSW.py))
-   i) OpenStreetMap layers ([script](/scripts/geo/geo_process_OSM.py))
+	a) Landsat-7 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat7.py))
+	b) Landsat-8 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat8.py))
+	c) ASTER DEM ([script](/scripts/geo/geo_process_ASTER.py))
+	d) AW3D30 DEM ([script](/scripts/geo/geo_process_AW3D30.py))
+	e) Night-time light ([script](/scripts/geo/geo_process_NTL.py))
+	f) Global forest canopy height ([script](/scripts/geo/geo_process_GCH.py))
+	g) Global forest cover ([script](/scripts/geo/geo_process_GFC.py))
+	h) Global surface water ([script](/scripts/geo/geo_process_GSW.py))
+	i) OpenStreetMap layers ([script](/scripts/geo/geo_process_OSM.py))
 4. Divide all available data into training (90%), validation (5%) and testing (5%) subsets, and prepare it for input to the pixel-based approaches (random forest & standard neural network) and patch-based approach (convolutional neural network) ([script](/scripts/geo/geo_process_ML_inputs.py)).
 5. Use step floating forward selection (SFFS) (with a random forest estimator) to select relevant features based on the training data subset ([script](/scripts/sklearn/sklearn_random_forest.py))
 6. Train the random forest model, tuning hyperparameters with reference to validation data subset ([script](/scripts/sklearn/sklearn_random_forest.py))
