@@ -74,15 +74,15 @@ The broad approach taken is summarised below as succinctly as possible, with fur
 1. For each available LiDAR survey zone, process the DSMs and DTM in tandem: clipping each DSM ([SRTM](/scripts/geo/geo_process_LiDAR_SRTM.py), [ASTER](/scripts/geo/geo_process_ASTER.py) and [AW3D30](/scripts/geo/geo_process_AW3D30.py)) to the extent covered by the LiDAR survey, and resampling the [DTM](/scripts/geo/geo_process_LiDAR_SRTM.py) to the same resolution & grid alignment as each DSM. Various DSM derivatives (such as slope, aspect & topographical index products) are also prepared here.
 2. Based on a comparison of differences between each DSM and the DTM (resampled to match that particular DSM), the SRTM DSM was selected as the "base" for all further processing ([script](/scripts/geo/geo_visualise_DSMs.py)).
 3. Process all other input datasets - resampling to match the SRTM resolution & grid alignment, masking out clouds for the multi-spectral imagery, applying bounds where appropriate (e.g. for percentage variables):
-    a) Landsat-7 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat7.py))
-    b) Landsat-8 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat8.py))
-    c) ASTER DEM ([script](/scripts/geo/geo_process_ASTER.py))
-    d) AW3D30 DEM ([script](/scripts/geo/geo_process_AW3D30.py))
-    e) Night-time light ([script](/scripts/geo/geo_process_NTL.py))
-    f) Global forest canopy height ([script](/scripts/geo/geo_process_GCH.py))
-    g) Global forest cover ([script](/scripts/geo/geo_process_GFC.py))
-    h) Global surface water ([script](/scripts/geo/geo_process_GSW.py))
-    i) OpenStreetMap layers ([script](/scripts/geo/geo_process_OSM.py))
+    * Landsat-7 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat7.py))
+    * Landsat-8 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat8.py))
+    * ASTER DEM ([script](/scripts/geo/geo_process_ASTER.py))
+    * AW3D30 DEM ([script](/scripts/geo/geo_process_AW3D30.py))
+    * Night-time light ([script](/scripts/geo/geo_process_NTL.py))
+    * Global forest canopy height ([script](/scripts/geo/geo_process_GCH.py))
+    * Global forest cover ([script](/scripts/geo/geo_process_GFC.py))
+    * Global surface water ([script](/scripts/geo/geo_process_GSW.py))
+    * OpenStreetMap layers ([script](/scripts/geo/geo_process_OSM.py))
 4. Divide all available data into training (90%), validation (5%) and testing (5%) subsets, and prepare it for input to the pixel-based approaches (random forest & standard neural network) and patch-based approach (convolutional neural network) ([script](/scripts/geo/geo_process_ML_inputs.py)).
 5. Use step floating forward selection (SFFS) (with a random forest estimator) to select relevant features based on the training data subset ([script](/scripts/sklearn/sklearn_random_forest.py))
 6. Train the random forest model, tuning hyperparameters with reference to validation data subset ([script](/scripts/sklearn/sklearn_random_forest.py))
