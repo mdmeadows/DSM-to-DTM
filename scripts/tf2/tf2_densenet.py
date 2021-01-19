@@ -81,7 +81,7 @@ features_dev[(features_dev==-9999)|features_dev.isnull()].sum()
 stats_train = features_train.describe()
 stats_train = stats_train.transpose()
 
-# Normalise all sets of input features (train, dev & test)
+# Normalise all sets of input features (train, dev)
 features_train_norm = normalise_df(features_train, stats_train)
 features_dev_norm = normalise_df(features_dev, stats_train)
 
