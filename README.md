@@ -5,7 +5,6 @@ As part of the requirements for the [Master of Disaster Risk & Resilience](https
 The image below visualises the performance of one of these models (a fully-convolutional neural network) in one of the three test zones considered (i.e. data unseen during model training & validation, used to assess the model's ability to generalise to new locations). A more detailed description is provided in the associated open-access journal article: [Meadows & Wilson 2021](https://www.mdpi.com/2072-4292/13/2/275).  
 
 ![graphical_abstract](/images/graphical_abstract_boxplots.png)
-
 <br/>
 
 ## Python scripts
@@ -18,7 +17,6 @@ Scripts are stored in folders relating to the virtual environments within which 
 - [sklearn](/scripts/sklearn/): development of Random Forest model
 - [tf2](/scripts/tf2/): development of neural network models
 - [osm](/scripts/osm/): downloading OpenStreetMap data
-
 <br/>
 
 ## Brief summary of datasets used
@@ -64,18 +62,17 @@ A few other datasets are referred to in the code, not as inputs to the machine l
 
 - MERIT DSM: Improved DSM developed by [Yamazaki et al. 2017](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2017GL072874), with a request form for the data available [here](http://hydro.iis.u-tokyo.ac.jp/~yamadai/MERIT_DEM/)
 - New Zealand Land Cover Database (LCDB v5.0): Developed by [Manaaki Whenua - Landcare Research](https://www.landcareresearch.co.nz/), available from the [LRIS portal](https://lris.scinfo.org.nz/)
-
 <br/>
 
 ## Brief summary of approach taken
 
 The broad approach taken is summarised below as succinctly as possible, with further details provided as comments in the relevant scripts.
 
-1. For each available LiDAR survey zone, process the DSMs and DTM in tandem: clipping each DSM ([SRTM](/scripts/geo/geo_process_LiDAR_SRTM.py), [ASTER](/scripts/geo/geo_process_ASTER.py) and [AW3D30](/scripts/geo/geo_process_AW3D30.py)) to the extent covered by the LiDAR survey, and resampling the [DTM](/scripts/geo/geo_process_LiDAR_SRTM.py) to the same resolution & grid alignment as each DSM. Various DSM derivatives (such as slope, aspect & topographical index products) are also prepared here.
-<br/>
-2. Based on a comparison of differences between each DSM and the DTM (resampled to match that particular DSM), the SRTM DSM was selected as the "base" for all further processing ([script](/scripts/geo/geo_visualise_DSMs.py)).
-<br/>
-3. Process all other input datasets - resampling to match the SRTM resolution & grid alignment, masking out clouds for the multi-spectral imagery, applying bounds where appropriate (e.g. for percentage variables):
+1. For each available LiDAR survey zone, process the DSMs and DTM in tandem: clipping each DSM ([SRTM](/scripts/geo/geo_process_LiDAR_SRTM.py), [ASTER](/scripts/geo/geo_process_ASTER.py) and [AW3D30](/scripts/geo/geo_process_AW3D30.py)) to the extent covered by the LiDAR survey, and resampling the [DTM](/scripts/geo/geo_process_LiDAR_SRTM.py) to the same resolution & grid alignment as each DSM. Various DSM derivatives (such as slope, aspect & topographical index products) are also prepared here.  
+
+2. Based on a comparison of differences between each DSM and the DTM (resampled to match that particular DSM), the SRTM DSM was selected as the "base" for all further processing ([script](/scripts/geo/geo_visualise_DSMs.py)).  
+
+3. Process all other input datasets - resampling to match the SRTM resolution & grid alignment, masking out clouds for the multi-spectral imagery, applying bounds where appropriate (e.g. for percentage variables):  
     - Landsat-7 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat7.py))
     - Landsat-8 multi-spectral imagery ([script](/scripts/geo/geo_process_Landsat8.py))
     - ASTER DEM ([script](/scripts/geo/geo_process_ASTER.py))
@@ -84,17 +81,16 @@ The broad approach taken is summarised below as succinctly as possible, with fur
     - Global forest canopy height ([script](/scripts/geo/geo_process_GCH.py))
     - Global forest cover ([script](/scripts/geo/geo_process_GFC.py))
     - Global surface water ([script](/scripts/geo/geo_process_GSW.py))
-    - OpenStreetMap layers ([script](/scripts/geo/geo_process_OSM.py))
-<br/>
-4. Divide all available data into training (90%), validation (5%) and testing (5%) subsets, and prepare for input to the pixel-based approaches (random forest & standard neural network) and patch-based approach (convolutional neural network) ([script](/scripts/geo/geo_process_ML_inputs.py)).
-<br/>
-5. Use step floating forward selection (SFFS) (with a random forest estimator) to select relevant features based on the training & validation datasets ([script](/scripts/sklearn/sklearn_random_forest.py))
-<br/>
-6. Train the random forest model, tuning hyperparameters with reference to the validation data subset ([script](/scripts/sklearn/sklearn_random_forest.py))
-<br/>
-7. Train the densely-connected neural network model, tuning hyperparameters with reference to the validation data subset ([script](/scripts/tf2/tf2_densenet.py))
-<br/>
-8. Train the fully-convolutional neural network model, tuning hyperparameters with reference to the validation data subset ([script](/scripts/tf2/tf2_convnet.py))
-<br/>
-9. Visualise results for testing data subset ([script](/scripts/geo/geo_visualise_results.py))
-<br/>
+    - OpenStreetMap layers ([script](/scripts/geo/geo_process_OSM.py))  
+
+4. Divide all available data into training (90%), validation (5%) and testing (5%) subsets, and prepare for input to the pixel-based approaches (random forest & standard neural network) and patch-based approach (convolutional neural network) ([script](/scripts/geo/geo_process_ML_inputs.py)).  
+
+5. Use step floating forward selection (SFFS) (with a random forest estimator) to select relevant features based on the training & validation datasets ([script](/scripts/sklearn/sklearn_random_forest.py))  
+
+6. Train the random forest model, tuning hyperparameters with reference to the validation data subset ([script](/scripts/sklearn/sklearn_random_forest.py))  
+
+7. Train the densely-connected neural network model, tuning hyperparameters with reference to the validation data subset ([script](/scripts/tf2/tf2_densenet.py))  
+
+8. Train the fully-convolutional neural network model, tuning hyperparameters with reference to the validation data subset ([script](/scripts/tf2/tf2_convnet.py))  
+
+9. Visualise results for the three zones of the testing data subset (unseen during model development) ([script](/scripts/geo/geo_visualise_results.py))  
