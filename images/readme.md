@@ -4,17 +4,17 @@ Selected visualisations of results are shared below, with more presented in the 
 
 <br/>
 
-## 1. Boxplots of residuals (before & after correction of SRTM in the Wairau Plains East test zone), using the convolutional neural network model
+### a) Boxplots of residuals (before & after correction of SRTM in the Wairau Plains East test zone), using the convolutional neural network model
 ![graphical_abstract](/images/graphical_abstract_boxplots.png)
 
 <br/>
 
-## 2. Bar plots of RMSE (before & after correction of SRTM in the Wairau Plains East test zone), using the convolutional neural network model
+### b) Bar plots of RMSE (before & after correction of SRTM in the Wairau Plains East test zone), using the convolutional neural network model
 ![graphical_abstract](/images/graphical_abstract_barh.png)
 
 <br/>
 
-### 3. Boxplots of residuals (before & after correction of SRTM in testing zones), classified by testing zone & land cover class
+#### c) Boxplots of residuals (before & after correction of SRTM in testing zones), classified by testing zone & land cover class
 ![graphical_abstract](/images/residuals_boxplots_by_zone-lcdb.png)
 
 <br/>
