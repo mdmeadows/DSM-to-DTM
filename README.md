@@ -16,9 +16,10 @@ Scripts are stored in folders relating to the virtual environments within which 
 - [geo](/scripts/geo/): geospatial processing & mapping
 - [sklearn](/scripts/sklearn/): development of Random Forest model
 - [tf2](/scripts/tf2/): development of neural network models
-- [osm](/scripts/osm/): downloading OpenStreetMap data  
-  
-  
+- [osm](/scripts/osm/): downloading OpenStreetMap data
+
+<br/><br/>
+
 ## Brief summary of datasets used
 
 The data processed for use in this project comprised the feature data (free, global datasets relevant to the vertical bias in DSMs, to be used as inputs to the machine learning models), target data (the reference "bare earth" DTM from which the models learn to predict vertical bias), and some supplementary datasets (not essential to the modelling but used to explore/understand the results).  
