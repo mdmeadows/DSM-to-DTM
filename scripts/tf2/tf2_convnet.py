@@ -1275,7 +1275,7 @@ for i, dataset in enumerate(['dev','test']):
     RMSE_densenet = df_densenet[(df_densenet['Dataset']==dataset)&(df_densenet['Type']=='densenet_ensemble')]['RMSE'].values.item()
     RMSE_convnet = df_convnet[(df_convnet['Dataset']==dataset)&(df_convnet['Type']=='convnet_ensemble')]['RMSE'].values.item()
     # Set up the figure
-    fig, axes = plt.subplots(figsize=(9,4.5))
+    fig, axes = plt.subplots(figsize=(9,3.8))
     axes.bar([0,1,2,3,4], [RMSE_initial, RMSE_baseline, RMSE_rf, RMSE_densenet, RMSE_convnet], color=dataset_colours[dataset], alpha=0.5)
     axes.set_xticks([0,1,2,3,4])
     axes.yaxis.set_tick_params(length=0)
@@ -1285,15 +1285,15 @@ for i, dataset in enumerate(['dev','test']):
     [axes.spines[edge].set_visible(False) for edge in ['left','top','right']]
     # Add a horizontal line showing the initial error & a label
     axes.axhline(y=RMSE_initial, color=dataset_colours[dataset], linestyle='dashed', alpha=0.5)
-    axes.annotate('{:.3f}m'.format(RMSE_initial), xy=(0, RMSE_initial), xytext=(0, -5), textcoords='offset points', ha='center', va='top')
+    axes.annotate('{:.2f} m'.format(RMSE_initial), xy=(0, RMSE_initial), xytext=(0, -5), textcoords='offset points', ha='center', va='top')
     # Add labels indicating improvement achieved by each method
     for j, RMSE_new in enumerate([RMSE_baseline, RMSE_rf, RMSE_densenet, RMSE_convnet]):
         # Add downward arrow from initial RMSE to improved MAE
         axes.annotate('', xy=(j+1, RMSE_new), xytext=(j+1, RMSE_initial), arrowprops=dict(arrowstyle='->'))
         # Add label indicating new RMAE and the percentage improvement it equates to
         improvement_percentage = (RMSE_new-RMSE_initial)/RMSE_initial * 100.
-        axes.annotate('{:.3f}m ({:.1f}%)'.format(RMSE_new, improvement_percentage), xy=(j+1, RMSE_new), xytext=(0, -5), textcoords='offset points', ha='center', va='top')
-    axes.set_title('Performance on {} dataset'.format('validation' if dataset=='dev' else dataset))
+        axes.annotate('{:.2f} m ({:.0f}%)'.format(RMSE_new, improvement_percentage), xy=(j+1, RMSE_new), xytext=(0, -5), textcoords='offset points', ha='center', va='top')
+    #axes.set_title('Performance on {} dataset'.format('validation' if dataset=='dev' else dataset))
     fig.tight_layout()
     fig.savefig('{}/convnet_RMSE_reduction_{}.png'.format(folder_fig, dataset), dpi=300)
     plt.close()
